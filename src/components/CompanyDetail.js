@@ -1,9 +1,10 @@
 import React from 'react';
-import { connect } from 'react-redux'
+import { useSelector } from 'react-redux'
 
 import News from "./News";
 
-function CompanyDetail({company}) {
+export default function CompanyDetail() {
+  const company = useSelector(state => state.selected);
   return (
     <div>
       <h1>{company.description}</h1>
@@ -12,13 +13,3 @@ function CompanyDetail({company}) {
     </div>
   );
 }
-
-const mapStateToProps = (state /*, ownProps*/) => {
-  return {
-    company: state.selected
-  }
-};
-
-export default connect(
-  mapStateToProps
-)(CompanyDetail);

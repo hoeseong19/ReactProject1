@@ -1,17 +1,25 @@
-import React from 'react';
-import { connect } from 'react-redux'
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux'
 
 import ListGroup from "react-bootstrap/ListGroup";
 
-import {selectCompany} from '../actions';
+import { loadCompanies, selectCompany } from '../actions';
 
-function CompanyList({companies, selectCompany}) {
+export default function CompanyList() {
+  const companies = useSelector(state => state.companies);
+  const dispatch = useDispatch();
+
+  // fix unlimited call in future
+  // useEffect(() => {
+  //   dispatch(loadCompanies());
+  // })
+
   return (
     <ListGroup variant="flush">
       {companies.map((item) => (
         <ListGroup.Item 
           key={item.symbol} 
-          onClick={() => {selectCompany(item)}}
+          onClick={() => {dispatch(selectCompany(item))}}
         >
           {item.description}
         </ListGroup.Item>
@@ -19,14 +27,3 @@ function CompanyList({companies, selectCompany}) {
     </ListGroup>
   );
 }
-
-const mapStateToProps = (state /*, ownProps*/) => {
-  return {
-    companies: state.companies
-  }
-};
-
-export default connect(
-  mapStateToProps, 
-  { selectCompany }
-)(CompanyList);
