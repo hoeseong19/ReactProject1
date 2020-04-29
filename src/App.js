@@ -1,7 +1,8 @@
 import React from 'react';
 
-import Container from '@material-ui/core/Container';
-import Grid from '@material-ui/core/Grid';
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
 import CompanyList from "./components/CompanyList";
 import CompanyDetail from "./components/CompanyDetail";
@@ -11,14 +12,14 @@ function App() {
   return (
     <div>
       <Container>
-        <Grid container spacing={3}>
-          <Grid item xs={8}>
+        <Row>
+          <Col sm={8}>
             <CompanyDetail/>
-          </Grid>
-          <Grid item xs={4}>
+          </Col>
+          <Col sm={4}>
             <CompanyList/>
-          </Grid>
-        </Grid>
+          </Col>
+        </Row>
       </Container>
     </div>
   );
