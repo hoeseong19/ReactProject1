@@ -2,7 +2,7 @@ import produce from "immer"
 
 const initialState = {
 	companies: {},
-	selected: {news: undefined, quote: undefined}
+	selected: {news: undefined, quote: undefined, candles: undefined}
 };
 
 const reducer = produce((state, action) => {
@@ -14,11 +14,12 @@ const reducer = produce((state, action) => {
 			break;
 		case "LOAD_QUOTE":
 			state.selected.quote = action.payload;
-			// calculate Fluctuation
-			
 			break;
 		case "LOAD_NEWS":
 			state.selected.news = action.payload;
+			break;
+		case "LOAD_CANDLES":
+			state.selected.candles = action.payload;
 			break;
 		default:
 			break;

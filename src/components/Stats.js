@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 
 import Table from "react-bootstrap/Table";
 
-export default function News() {
+export default function Stats() {
   const quote = useSelector(state => state.selected.quote);
   const change = (quote.c-quote.pc).toFixed(2);
   const p_change = ((change/quote.pc) * 100).toFixed(2);
