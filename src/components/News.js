@@ -1,24 +1,38 @@
-// import React from "react";
-// import { useSelector } from "react-redux";
+import React from "react";
+import { useSelector } from "react-redux";
 
-// import Card from "react-bootstrap/Card";
-// import Button from "react-bootstrap/Button";
+import Card from "react-bootstrap/Card";
+import Button from "react-bootstrap/Button";
 
-// export default function News() {
-//   const company = useSelector(state => state.selected);
+function NewsItem({news}) {
+  const { headline, image, summary, url } = news;
+  return (
+    <Card style={{ width: '18rem' }}>
+      <Card.Img variant="top" src={image} />
+      <Card.Body>
+        <Card.Title>{headline}</Card.Title>
+        <Card.Text>
+          {summary}
+        </Card.Text>
+        <Button variant="success">
+          <a href={url}>Go somewhere</a>
+        </Button>
+      </Card.Body>
+    </Card>
+  )
+}
 
-//   return (
-//     <div>
-//       <Card style={{ width: '18rem' }}>
-//         <Card.Img variant="top" src="holder.js/100px180" />
-//         <Card.Body>
-//           <Card.Title>HeadLine</Card.Title>
-//           <Card.Text>
-//             Subscribtion
-//           </Card.Text>
-//           <Button variant="primary">Go somewhere</Button>
-//         </Card.Body>
-//       </Card>
-//     </div>
-//   );
-// }
+export default function News() {
+  const news = useSelector(state => state.selected.news);
+
+  if (!news) {
+    return (<div>Loading</div>);
+  }
+  return (
+    <div>
+      {news.map((item) => (
+        <NewsItem key={item.id} news={item}/>
+      ))}
+    </div>
+  );
+}
