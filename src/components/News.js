@@ -1,24 +1,27 @@
 import React from "react";
 import { useSelector } from "react-redux";
 
-import Card from "react-bootstrap/Card";
-import Button from "react-bootstrap/Button";
+import Media from "react-bootstrap/Media";
+import ListGroup from "react-bootstrap/ListGroup";
 
 function NewsItem({news}) {
   const { headline, image, summary, url } = news;
   return (
-    <Card style={{ width: '18rem' }}>
-      <Card.Img variant="top" src={image} />
-      <Card.Body>
-        <Card.Title>{headline}</Card.Title>
-        <Card.Text>
+    <Media as="li">
+      <img
+        width={64}
+        height={64}
+        className="mr-3"
+        src={image}
+        alt="Generic placeholder"
+      />
+      <Media.Body>
+        <h5>{headline}</h5>
+        <p>
           {summary}
-        </Card.Text>
-        <Button variant="success">
-          <a href={url}>Go somewhere</a>
-        </Button>
-      </Card.Body>
-    </Card>
+        </p>
+      </Media.Body>
+    </Media>
   )
 }
 
@@ -29,10 +32,12 @@ export default function News() {
     return (<div>Loading</div>);
   }
   return (
-    <div>
+    <ListGroup className="list-unstyled">
       {news.map((item) => (
-        <NewsItem key={item.id} news={item}/>
+        <ListGroup.Item key={item.id}>
+          <NewsItem news={item}/>
+        </ListGroup.Item>
       ))}
-    </div>
+    </ListGroup>
   );
 }

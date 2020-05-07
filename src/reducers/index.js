@@ -13,10 +13,9 @@ const reducer = produce((state, action) => {
 			});
 			break;
 		case "LOAD_QUOTE":
-			state.companies[action.payload.symbol].quote = action.payload.data;
-			break;
-		case "COMPANY_SELECT":
-			state.selected = action.payload
+			state.selected.quote = action.payload;
+			// calculate Fluctuation
+			
 			break;
 		case "LOAD_NEWS":
 			state.selected.news = action.payload;

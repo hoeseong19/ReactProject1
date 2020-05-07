@@ -2,8 +2,10 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { useParams } from 'react-router-dom';
 
-import { loadNews } from "../actions/index";
+import { loadNews, loadQuote } from "../actions/index";
+import Stats from "../components/Stats";
 import News from "../components/News";
+
 
 export default function CompanyDetail() {
   const { symbol } = useParams();
@@ -13,6 +15,7 @@ export default function CompanyDetail() {
   
   useEffect(() => {
     dispatch(loadNews(symbol));
+    dispatch(loadQuote(symbol));
   }) 
 
   if (!company) {
@@ -20,12 +23,12 @@ export default function CompanyDetail() {
   }
   return (
     <div>
-      <h1>{company.description}</h1>
-      <h2>Chart</h2>
-      <h2>News</h2>
+      <h3>{company.description}</h3>
+      <Stats/>
+      <h5>Chart</h5>
+      <h5>News</h5>
       <News/>
-      <h2>Stats</h2>
-
+      
     </div>
   );
 }

@@ -28,7 +28,7 @@ export function loadQuote(symbol) {
       }
     }).then((response) => {
       console.log(response);
-      dispatch({type: "LOAD_QUOTE", payload: { data: response.data, symbol: symbol }});
+      dispatch({type: "LOAD_QUOTE", payload: response.data});
     }) 
   }
 }
