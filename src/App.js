@@ -1,15 +1,15 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route
+} from "react-router-dom";
 
 import { loadCompanies } from "./actions/index";
 
-import SearchBar from "./components/SearchBar";
-import CompanyList from "./components/CompanyList";
-import CompanyDetail from "./components/CompanyDetail";
+import CompanyList from "./pages/ListPage";
+import CompanyDetail from "./pages/CompanyPage";
 import './App.css';
 
 function App() {
@@ -18,19 +18,18 @@ function App() {
     dispatch(loadCompanies());
   })
   return (
-    <div>
-      <Container>
-        <Row>
-          <Col sm={8}>
-            {/* <CompanyDetail/> */}
-          </Col>
-          <Col sm={4}>
-            {/* <SearchBar/> */}
-            <CompanyList/>
-          </Col>
-        </Row>
-      </Container>
-    </div>
+    <Router>
+      <div>
+        <Switch>
+          <Route path="/companies/:symbol">
+            <CompanyDetail />
+          </Route>
+          <Route path="/">
+            <CompanyList />
+          </Route>
+        </Switch>
+      </div>
+    </Router>
   );
 }
 

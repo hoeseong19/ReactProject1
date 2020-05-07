@@ -1,22 +1,26 @@
 import produce from "immer"
 
 const initialState = {
-	companies: [],
+	companies: {},
 	selected: undefined
 };
 
-const reducer = produce((state = initialState, action) => {
+const reducer = produce((state, action) => {
 	switch(action.type) {
 		case "LOAD_COMPANIES":
-			state.companies = action.payload;
+			action.payload.forEach(company => {
+				state.companies[company.symbol] = company
+			});
+			break;
+		case "LOAD_QUOTE":
+			state.companies[action.payload.symbol].quote = action.payload.data;
 			break;
 		case "COMPANY_SELECT":
 			state.selected = action.payload
 			break;
 		default:
-			state.selected = state.companies[0];
-			return state
+			break;
 	}
-});
+}, initialState);
 
 export default reducer;
