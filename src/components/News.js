@@ -4,6 +4,17 @@ import { useSelector } from "react-redux";
 import Media from "react-bootstrap/Media";
 import ListGroup from "react-bootstrap/ListGroup";
 import Button from "react-bootstrap/Button";
+import styled from 'styled-components';
+
+const LimitedP = styled.p`
+  text-overflow: ellipsis; 
+  overflow: hidden;
+  white-space: nowrap; 
+  width: 80vw;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+`;
 
 function NewsItem({news}) {
   const { headline, image, summary, url } = news;
@@ -18,9 +29,9 @@ function NewsItem({news}) {
       />
       <Media.Body>
         <h5>{headline}</h5>
-        <p>
+        <LimitedP>
           {summary}
-        </p>
+        </LimitedP>
         <Button variant="secondary" href={url}>Site</Button>
       </Media.Body>
     </Media>

@@ -5,11 +5,13 @@ import Table from "react-bootstrap/Table";
 
 export default function Stats() {
   const quote = useSelector(state => state.selected.quote);
-  const change = (quote.c-quote.pc).toFixed(2);
-  const p_change = ((change/quote.pc) * 100).toFixed(2);
   if (!quote) {
     return (<div>Loading</div>);
   }
+  
+  const change = (quote.c-quote.pc).toFixed(2);
+  const p_change = ((change/quote.pc) * 100).toFixed(2);
+  
   return (
     <div>
       <h1>{quote.c}</h1>

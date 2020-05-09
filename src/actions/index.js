@@ -52,24 +52,26 @@ export function loadNews(symbol) {
   }
 }
 
-// export function loadCandles(symbol) {
-//   const NEWS_URL = `${BASE_URL}/stock/candle`;
-//   const API_KEY = "bq6uatnrh5r8h5n0k7n0";
-//   var d = new Date();
-//   d.setDate(d.getDate() - 1);
-//   const from = (d.getTime() / 1000).toFixed(0);
-//   const to = (+new Date() / 1000).toFixed(0);
+export function loadCandles(symbol) {
+  const NEWS_URL = `${BASE_URL}/stock/candle`;
+  const API_KEY = "bq6uatnrh5r8h5n0k7n0";
+  var d = new Date();
+  d.setDate(d.getDate() - 1);
+  const from = (d.getTime() / 1000).toFixed(0);
+  var to = +new Date() / 1000;
+  to = to.toFixed(0);
 
-//   return (dispatch) => {
-//     Axios.get(NEWS_URL, {
-//       params: {
-//         token: API_KEY, 
-//         symbol: symbol, 
-//         from: from, 
-//         to: to
-//       }
-//     }).then((response) => {
-//       dispatch({type: "LOAD_CANDLES", payload: response.data});
-//     })
-//   }
-// }
+  return (dispatch) => {
+    Axios.get(NEWS_URL, {
+      params: {
+        token: API_KEY, 
+        symbol: symbol, 
+        resolution: 1, 
+        from: from, 
+        to: to
+      }
+    }).then((response) => {
+      dispatch({type: "LOAD_CANDLES", payload: response.data});
+    })
+  }
+}

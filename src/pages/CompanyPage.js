@@ -17,7 +17,7 @@ export default function CompanyDetail() {
   useEffect(() => {
     dispatch(loadNews(symbol));
     dispatch(loadQuote(symbol));
-    // dispatch(loadCandles(symbol));
+    dispatch(loadCandles(symbol));
   }) 
 
   if (!company) {
