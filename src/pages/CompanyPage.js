@@ -2,6 +2,9 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { useParams } from 'react-router-dom';
 
+import Tabs from "react-bootstrap/Tabs";
+import Tab from "react-bootstrap/Tab";
+
 import { loadNews, loadQuote, loadCandles } from "../actions/index";
 import Stats from "../components/Stats";
 import News from "../components/News";
@@ -27,11 +30,19 @@ export default function CompanyDetail() {
     <div>
       <h3>{company.description}</h3>
       <Stats/>
-      <h5>Chart</h5>
-      <Chart/>
-      <h5>News</h5>
-      <News/>
-      
+      <Tabs defaultActiveKey="profile" id="uncontrolled-tab-example">
+        <Tab eventKey="home" title="Home" disabled>
+          
+        </Tab>
+        <Tab eventKey="Chart" title="Chart">
+          <Chart/>
+        </Tab>
+        <Tab eventKey="News" title="News">
+          <News/>
+        </Tab>
+      </Tabs>
     </div>
+
+    
   );
 }

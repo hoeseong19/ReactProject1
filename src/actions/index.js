@@ -13,7 +13,7 @@ export function loadCompanies() {
       }
     }).then((response) => {
       console.log(response);
-      dispatch({type: "LOAD_COMPANIES", payload: response.data});
+      dispatch({type: "LOAD_COMPANIES", payload: response.data.slice(0, 30)});
     }) 
   }
 }

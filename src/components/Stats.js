@@ -11,6 +11,7 @@ function PriceItem({quote, symbol}) {
 
   const socket = useRef(null);
   useEffect(() => {
+    setPrice(quote.c);
     socket.current = new WebSocket('wss://ws.finnhub.io?token=bq6uatnrh5r8h5n0k7n0');
     // Connection opened -> Subscribe
     socket.current.onopen = () => {
@@ -23,7 +24,7 @@ function PriceItem({quote, symbol}) {
     return () => {
       socket.current.close();
     }
-  }, [])
+  }, [quote])
   useEffect(() => {
     if(!socket.current) {
       return null;
@@ -36,12 +37,27 @@ function PriceItem({quote, symbol}) {
       }
     }
   }, [price])
-  return (
-    <div>
-      <h1>{price}</h1>
-      <h2>{change}({p_change}%)</h2>
-    </div>
-  )
+  if(change>=0) {
+    return (
+      <div style={{"color": "#00F"}}>
+        <h1>
+          <i className="fas fa-caret-up"></i>
+          {price}
+        </h1>
+        <h2>{change}({p_change}%)</h2>
+      </div>
+    )
+  } else {
+    return (
+      <div style={{"color": "#F00"}}>
+        <h1>
+          <i className="fas fa-caret-down"></i>
+          {price}
+        </h1>
+        <h2>{change}({p_change}%)</h2>
+      </div>
+    )
+  }
 }
 
 export default function Stats() {
