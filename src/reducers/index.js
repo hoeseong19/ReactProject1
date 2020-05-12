@@ -1,5 +1,4 @@
 import produce from "immer"
-import _ from "lodash";
 
 const initialState = {
 	companies: {},
@@ -10,7 +9,9 @@ const reducer = produce((state, action) => {
 	switch(action.type) {
 		case "LOAD_COMPANIES":
 			action.payload.forEach(company => {
-				state.companies[company.symbol] = company
+				if(company.description) {
+					state.companies[company.symbol] = company
+				}
 			});
 			break;
 		case "LOAD_QUOTE":

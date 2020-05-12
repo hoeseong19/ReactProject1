@@ -13,7 +13,7 @@ export function loadCompanies() {
       }
     }).then((response) => {
       console.log(response);
-      dispatch({type: "LOAD_COMPANIES", payload: response.data.slice(1, 10)});
+      dispatch({type: "LOAD_COMPANIES", payload: response.data});
     }) 
   }
 }
@@ -60,6 +60,10 @@ export function loadCandles(symbol) {
   const from = (d.getTime() / 1000).toFixed(0);
   var to = +new Date() / 1000;
   to = to.toFixed(0);
+
+  // const date = new Date().format("yyyy-mm-dd");
+  // const open = "22:30";
+  // const close = "05:00";
 
   return (dispatch) => {
     Axios.get(NEWS_URL, {
