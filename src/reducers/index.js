@@ -26,12 +26,12 @@ const reducer = produce((state, action) => {
 			// Open, High, Low, Close
 			const {o, h, l, c} = action.payload;
 			const prices = zip([o, h, l, c]);
-
+			state.selected.candles = [];
 			action.payload.t.map((item, idx) => {
 				// x: new Date(1538778600000),
 				// y: [6629.81, 6650.5, 6623.04, 6633.33]
 				state.selected.candles.push({
-					x: new Date(item), 
+					x: new Date(item * 1000), 
 					y: prices[idx]
 				})
 			})

@@ -35,15 +35,18 @@ export function loadQuote(symbol) {
 
 export function loadNews(symbol) {
   const NEWS_URL = `${BASE_URL}/company-news`;
-  // var todayDate = new Date().toISOString().slice(0,10);
+  const today = new Date().toISOString().slice(0,10);
+  var yesterday = new Date();
+  yesterday.setDate(yesterday.getDate() - 1);
+  const yDate = yesterday.toISOString().slice(0,10);
 
   return (dispatch) => {
     Axios.get(NEWS_URL, {
       params: {
         token: API_KEY, 
         symbol: symbol, 
-        from: "2020-05-01", 
-        to: "2020-05-08"
+        from: yDate, 
+        to: today
       }
     }).then((response) => {
       dispatch({type: "LOAD_NEWS", payload: response.data});
@@ -53,15 +56,17 @@ export function loadNews(symbol) {
 
 export function loadCandles(symbol) {
   const NEWS_URL = `${BASE_URL}/stock/candle`;
-  var d = new Date();
-  d.setDate(d.getDate() - 1);
-  const from = (d.getTime() / 1000).toFixed(0);
-  var to = +new Date() / 1000;
-  to = to.toFixed(0);
 
-  // const date = new Date().format("yyyy-mm-dd");
-  // const open = "22:30";
-  // const close = "05:00";
+  const today = new Date().toISOString().slice(0,10);
+  var yesterday = new Date();
+  yesterday.setDate(yesterday.getDate() - 1);
+  const yDate = yesterday.toISOString().slice(0,10);
+
+  const open = "22:30";
+  const close = "05:00";
+
+  const uFrom = +new Date(yDate+" "+open) / 1000;
+  const uTo = +new Date(today+" "+close) / 1000;
 
   return (dispatch) => {
     Axios.get(NEWS_URL, {
@@ -69,8 +74,8 @@ export function loadCandles(symbol) {
         token: API_KEY, 
         symbol: symbol, 
         resolution: 1, 
-        from: from, 
-        to: to
+        from: uFrom, 
+        to: uTo
       }
     }).then((response) => {
       dispatch({type: "LOAD_CANDLES", payload: response.data});
