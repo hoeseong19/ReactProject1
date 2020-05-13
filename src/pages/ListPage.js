@@ -11,7 +11,7 @@ function CompanyItem({company}) {
       as={Link}
       to={`companies/${company.symbol}`}
     >
-      {company.symbol}({company.description})
+      {company.description}({company.symbol})
     </ListGroup.Item>
   )
 }

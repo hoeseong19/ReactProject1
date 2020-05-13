@@ -2,7 +2,7 @@ import produce from "immer"
 
 const initialState = {
 	companies: {},
-	selected: {news: undefined, quote: undefined, candles: []}
+	selected: {news: undefined, quote: undefined, candles: [], profile: undefined}
 };
 
 const reducer = produce((state, action) => {
@@ -23,6 +23,7 @@ const reducer = produce((state, action) => {
 		case "LOAD_CANDLES":
 			const zip= rows=>rows[0].map((_,c)=>rows.map(row=>row[c]))
 			// https://stackoverflow.com/questions/4856717/javascript-equivalent-of-pythons-zip-function
+			// Open, High, Low, Close
 			const {o, h, l, c} = action.payload;
 			const prices = zip([o, h, l, c]);
 
@@ -34,8 +35,9 @@ const reducer = produce((state, action) => {
 					y: prices[idx]
 				})
 			})
-			// Open, High, Low, Close
-			
+			break;
+		case "LOAD_PROFILE":
+			state.selected.profile = action.payload;
 			break;
 		default:
 			break;

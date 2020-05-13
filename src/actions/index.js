@@ -35,7 +35,6 @@ export function loadQuote(symbol) {
 
 export function loadNews(symbol) {
   const NEWS_URL = `${BASE_URL}/company-news`;
-  const API_KEY = "bq6uatnrh5r8h5n0k7n0";
   // var todayDate = new Date().toISOString().slice(0,10);
 
   return (dispatch) => {
@@ -54,7 +53,6 @@ export function loadNews(symbol) {
 
 export function loadCandles(symbol) {
   const NEWS_URL = `${BASE_URL}/stock/candle`;
-  const API_KEY = "bq6uatnrh5r8h5n0k7n0";
   var d = new Date();
   d.setDate(d.getDate() - 1);
   const from = (d.getTime() / 1000).toFixed(0);
@@ -76,6 +74,21 @@ export function loadCandles(symbol) {
       }
     }).then((response) => {
       dispatch({type: "LOAD_CANDLES", payload: response.data});
+    })
+  }
+}
+
+export function loadProfile(symbol) {
+  const PROFILE_URL = `${BASE_URL}/stock/profile2`;
+
+  return (dispatch) => {
+    Axios.get(PROFILE_URL, {
+      params: {
+        token: API_KEY, 
+        symbol: symbol
+      }
+    }).then((response) => {
+      dispatch({type: "LOAD_PROFILE", payload: response.data});
     })
   }
 }
