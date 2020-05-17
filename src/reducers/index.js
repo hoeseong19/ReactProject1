@@ -21,20 +21,24 @@ const reducer = produce((state, action) => {
 			state.selected.news = action.payload;
 			break;
 		case "LOAD_CANDLES":
-			const zip= rows=>rows[0].map((_,c)=>rows.map(row=>row[c]))
-			// https://stackoverflow.com/questions/4856717/javascript-equivalent-of-pythons-zip-function
-			// Open, High, Low, Close
-			const {o, h, l, c} = action.payload;
-			const prices = zip([o, h, l, c]);
 			state.selected.candles = [];
-			action.payload.t.map((item, idx) => {
-				// x: new Date(1538778600000),
-				// y: [6629.81, 6650.5, 6623.04, 6633.33]
-				state.selected.candles.push({
-					x: new Date(item * 1000), 
-					y: prices[idx]
+			if(action.payload.s === "ok") {
+				const zip= rows=>rows[0].map((_,c)=>rows.map(row=>row[c]))
+				// https://stackoverflow.com/questions/4856717/javascript-equivalent-of-pythons-zip-function
+				// Open, High, Low, Close
+				const {o, h, l, c} = action.payload;
+				const prices = zip([o, h, l, c]);
+				action.payload.t.map((item, idx) => {
+					// x: new Date(1538778600000),
+					// y: [6629.81, 6650.5, 6623.04, 6633.33]
+					state.selected.candles.push({
+						x: new Date(item * 1000), 
+						y: prices[idx]
+					})
 				})
-			})
+			} else {
+				state.selected.candles = action.payload;
+			}
 			break;
 		case "LOAD_PROFILE":
 			state.selected.profile = action.payload;

@@ -6,7 +6,7 @@ import ListGroup from "react-bootstrap/ListGroup";
 import Button from "react-bootstrap/Button";
 
 function NewsItem({news}) {
-  const { headline, image, summary, url } = news;
+  const { headline, image, summary, url, datetime } = news;
   return (
     <Media as="li">
       <img
@@ -21,7 +21,9 @@ function NewsItem({news}) {
         <p>
           {summary}
         </p>
-        <Button variant="secondary" href={url}>Site</Button>
+        <small>published at {new Date(datetime*1000).toISOString().slice(0, 10)}</small>
+        <br/>
+        <Button variant="secondary" href={url}>Read More</Button>
       </Media.Body>
     </Media>
   )

@@ -13,7 +13,7 @@ export function loadCompanies() {
       }
     }).then((response) => {
       console.log(response);
-      dispatch({type: "LOAD_COMPANIES", payload: response.data.slice(0, 30)});
+      dispatch({type: "LOAD_COMPANIES", payload: response.data});
     }) 
   }
 }
@@ -37,7 +37,7 @@ export function loadNews(symbol) {
   const NEWS_URL = `${BASE_URL}/company-news`;
   const today = new Date().toISOString().slice(0,10);
   var yesterday = new Date();
-  yesterday.setDate(yesterday.getDate() - 1);
+  yesterday.setDate(yesterday.getDate() - 7);
   const yDate = yesterday.toISOString().slice(0,10);
 
   return (dispatch) => {
@@ -62,7 +62,7 @@ export function loadCandles(symbol) {
   yesterday.setDate(yesterday.getDate() - 1);
   const yDate = yesterday.toISOString().slice(0,10);
 
-  const open = "22:30";
+  const open = "22:30";//+9
   const close = "05:00";
 
   const uFrom = +new Date(yDate+" "+open) / 1000;

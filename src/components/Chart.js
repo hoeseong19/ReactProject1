@@ -2,10 +2,12 @@ import React from "react";
 import Chart from "react-apexcharts";
 import { useSelector } from "react-redux";
 
-function App() {
+export default function ChartItem() {
   const candles = useSelector(state => state.selected.candles);
   if (!candles) {
     return (<div>Loading</div>);
+  } else if(candles.s ==="no_data") {
+    return (<div>No Data</div>);
   }
   
   const series= [{
@@ -46,5 +48,3 @@ function App() {
     </div>
   );
 }
-
-export default App;

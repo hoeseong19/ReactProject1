@@ -33,10 +33,11 @@ function PriceItem({quote, symbol}) {
       const data = JSON.parse(e.data);
       console.log('Message from server ', data);
       if(data.type === 'trade') {
+        console.log("date??????????", Date(data.data[0].t))
         setPrice(JSON.parse(e.data).data[0].p);
       }
     }
-  }, [price])
+  }, [price, quote])
   if(change>=0) {
     return (
       <div style={{"color": "#00F"}}>
