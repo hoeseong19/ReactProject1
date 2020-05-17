@@ -57,16 +57,21 @@ export function loadNews(symbol) {
 export function loadCandles(symbol) {
   const NEWS_URL = `${BASE_URL}/stock/candle`;
 
-  const today = new Date().toISOString().slice(0,10);
-  var yesterday = new Date();
-  yesterday.setDate(yesterday.getDate() - 1);
-  const yDate = yesterday.toISOString().slice(0,10);
+  var today = new Date();
 
-  const open = "22:30";//+9
+  const dist = !(today.getDay()%6===0) ? 0 : (today.getDay()===6) ? 1 : 2;
+  
+  today.setDate(today.getDate() - dist);
+  const to = today.toISOString().slice(0,10);
+  var fromDay = new Date();
+  fromDay.setDate(fromDay.getDate() - 1 - dist);
+  const from = fromDay.toISOString().slice(0,10);
+
+  const open = "22:30";//GMT+0900
   const close = "05:00";
 
-  const uFrom = +new Date(yDate+" "+open) / 1000;
-  const uTo = +new Date(today+" "+close) / 1000;
+  const uFrom = +new Date(from+" "+open) / 1000;
+  const uTo = +new Date(to+" "+close) / 1000;
 
   return (dispatch) => {
     Axios.get(NEWS_URL, {
